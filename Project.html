@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravi • Portfolio</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-4oVh6oUeU0d6LqN3kXk3JvZ8n5X2o8y1bKfRjQ3h0jVn0p8s8p3hW9J3cYwF8kq3r2p+2OqV8yXQ1kq0d0U5xg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root{
+      --bg: #0b0f17;            /* page background */
+      --card: #111827;          /* section cards */
+      --muted: #94a3b8;         /* secondary text */
+      --text: #e5e7eb;          /* main text */
+      --brand: #7c3aed;         /* accent */
+      --brand-2: #06b6d4;       /* accent 2 */
+      --ring: 0 0 0 8px rgba(124,58,237,.15);
+    }
+    * { box-sizing: border-box }
+    html { scroll-behavior: smooth }
+    body {
+      margin: 0; font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text); background: radial-gradient(1200px 600px at 80% -10%, rgba(124,58,237,.35), transparent 55%),
+                           radial-gradient(900px 500px at 10% -20%, rgba(6,182,212,.25), transparent 50%),
+                           var(--bg);
+    }
+    a { color: inherit; text-decoration: none }
+    img { max-width: 100%; display: block }
+    /* Header */
+    header{
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.1) blur(10px);
+      background: rgba(11,15,23,.65); border-bottom: 1px solid rgba(148,163,184,.12);
+    }
+    .nav{ max-width: 1200px; margin: 0 auto; padding: .9rem 1rem; display: flex; align-items: center; justify-content: space-between }
+    .logo{ font-weight: 700; letter-spacing: .5px; font-size: 1.15rem; display: inline-flex; align-items: center; gap:.6rem }
+    .logo .dot{ width: .6rem; height: .6rem; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: 0 0 0 6px rgba(124,58,237,.15) }
+    .links{ display: flex; gap: .75rem; align-items:center; flex-wrap: wrap }
+    .links a{ padding:.5rem .8rem; border-radius: 999px; font-size: .95rem; color: var(--muted) }
+    .links a.active, .links a:hover{ color: white; background: rgba(124,58,237,.16); box-shadow: var(--ring) }
+    .menu-btn{ display:none; border:0; background: rgba(124,58,237,.15); color:white; padding:.55rem .75rem; border-radius: .8rem }
+
+    /* Layout helpers */
+    .container{ max-width: 1100px; margin: 0 auto; padding: 2rem 1rem }
+    section{ scroll-margin-top: 90px }
+    .grid{ display:grid; gap: 1.25rem }
+    @media(min-width: 900px){ .grid-2{ grid-template-columns: 1.1fr 1fr } }
+
+    /* Hero */
+    .hero{ min-height: calc(100svh - 70px); display:grid; place-items: center }
+    .hero-card{ display:grid; gap: 1.25rem; align-items:center }
+    @media(min-width: 900px){ .hero-card{ grid-template-columns: 1.1fr 1fr } }
+    .hero h1{ font-size: clamp(2.2rem, 4vw + 1rem, 3.5rem); margin: 0; line-height: 1.1 }
+    .hero p{ color: var(--muted); margin: .6rem 0 0 }
+    .pill{ display:inline-flex; align-items:center; gap:.6rem; padding:.5rem .8rem; border-radius:999px; background: rgba(6,182,212,.14); border:1px solid rgba(6,182,212,.25); font-size:.9rem }
+    .tag{ color:#67e8f9; font-weight:600 }
+    .gradient-text{ background: linear-gradient(135deg, #fff, #c4b5fd, #67e8f9); -webkit-background-clip:text; background-clip:text; color:transparent }
+
+    /* Avatar / image */
+    .avatar-wrap{ position: relative; width: 260px; height: 260px; margin: auto }
+    .ring{ position:absolute; inset: -10px; border-radius:50%; background: conic-gradient(from 90deg, var(--brand), var(--brand-2), var(--brand)); filter: blur(16px); opacity:.7; }
+    .avatar{
+      position:relative; width:100%; height:100%; border-radius: 24px; overflow:hidden; border:1px solid rgba(148,163,184,.25); background: linear-gradient(180deg, rgba(17,24,39,.9), rgba(17,24,39,.6));
+      display:grid; place-items:center;
+    }
+    .avatar img{ width:100%; height:100%; object-fit: cover; display:block }
+    .avatar .fallback{ font-size: 4rem; font-weight:700; letter-spacing: 2px; color:#c4b5fd }
+
+    /* Socials */
+    .social{ display:flex; gap:.75rem; flex-wrap:wrap }
+    .social a{ width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:#0f172a; border:1px solid rgba(148,163,184,.2) }
+    .social a:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px -15px rgba(124,58,237,.55) }
+
+    /* Section cards */
+    .card{ background: linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.6)); border:1px solid rgba(148,163,184,.2); border-radius: 20px; padding: 1.25rem }
+    .card h2{ margin: 0 0 .75rem; font-size: 1.6rem }
+    .muted{ color: var(--muted) }
+
+    /* Services */
+    .service-grid{ display:grid; gap:1rem }
+    @media(min-width: 750px){ .service-grid{ grid-template-columns: repeat(3, 1fr) } }
+    .service{ padding:1.25rem; border-radius:18px; border:1px solid rgba(148,163,184,.2); background: #0f172a }
+    .service i{ font-size:1.3rem; padding:.7rem; border-radius:12px; background: rgba(124,58,237,.18); margin-bottom:.6rem }
+
+    /* Skills */
+    .skills{ display:grid; gap:.6rem; grid-template-columns: repeat(2, 1fr) }
+    @media(min-width: 700px){ .skills{ grid-template-columns: repeat(4, 1fr) } }
+    .chip{ padding:.55rem .7rem; border-radius: 999px; border:1px solid rgba(148,163,184,.25); background:#0b1220; text-align:center; font-size:.95rem }
+
+    /* Timeline */
+    .timeline{ position:relative; padding-left:1rem }
+    .timeline::before{ content:""; position:absolute; left:.35rem; top:.2rem; bottom:.2rem; width:2px; background: linear-gradient(180deg, var(--brand), transparent) }
+    .item{ margin: 1rem 0 1.3rem 1rem; padding-left:.6rem }
+    .item h3{ margin:.1rem 0 }
+    .item .when{ font-size:.9rem; color:var(--muted) }
+
+    /* Projects */
+    .projects{ display:grid; gap:1rem }
+    @media(min-width: 850px){ .projects{ grid-template-columns: repeat(2, 1fr) } }
+    .project{ border:1px solid rgba(148,163,184,.2); background:#0f172a; border-radius:18px; overflow:hidden }
+    .project img{ aspect-ratio: 16/9; object-fit: cover }
+    .project .p-body{ padding:1rem }
+    .project .tags{ display:flex; gap:.5rem; flex-wrap:wrap }
+
+    /* Contact */
+    .contact{ display:grid; gap:1rem }
+    @media(min-width: 850px){ .contact{ grid-template-columns: 1fr 1fr } }
+    .form{ display:grid; gap:.8rem }
+    input, textarea{ width:100%; padding:.9rem 1rem; border-radius:12px; border:1px solid rgba(148,163,184,.3); background:#0b1220; color:var(--text); outline: none }
+    input:focus, textarea:focus{ border-color: var(--brand); box-shadow: var(--ring) }
+    button{ padding:.85rem 1.1rem; border-radius:12px; border:0; font-weight:600; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:white }
+    footer{ text-align:center; color: var(--muted); padding: 2rem 1rem }
+
+    /* Mobile nav */
+    @media(max-width: 840px){
+      .links{ display:none }
+      .menu-btn{ display:inline-flex }
+      .mobile{ display:none; position: absolute; left: 1rem; right:1rem; top: 64px; background:#0b1220; border:1px solid rgba(148,163,184,.2); border-radius: 14px; padding:.6rem }
+      .mobile a{ display:block; padding:.8rem 1rem; border-radius:10px; color: var(--muted) }
+      .mobile a:hover{ background: rgba(124,58,237,.14); color:white }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <a href="#home" class="logo"><span class="dot"></span> Ravi</a>
+      <nav class="links">
+        <a href="#home" class="active">Home</a>
+        <a href="#services">Services</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="menu-btn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div class="mobile" id="mobileMenu">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="home" class="hero container">
+    <div class="hero-card">
+      <div>
+        <span class="pill"><i class="fa-solid fa-sparkles"></i><span class="tag">Open to Opportunities</span></span>
+        <h1>Hi, it's <span class="gradient-text">Ravi</span> 👋</h1>
+        <h3 class="muted" id="typing">I am a <span class="gradient-text" id="typeTarget"></span></h3>
+        <p class="muted">
+          A passionate and curious learner pursuing B.Tech in <b>Electronics & Computer Engineering</b> at
+          <b>K.J. Somaiya School of Engineering</b>. I explore AI, IoT & Robotics and have built projects like a
+          <b>Smart Agriculture IoT Solution</b> and a <b>Voice‑Controlled Smart Wheelchair</b>. I love solving problems,
+          working with teams, and creating real‑world impact.
+        </p>
+        <div class="social" style="margin-top: .9rem">
+          <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="#" title="Resume"><i class="fa-solid fa-file-lines"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="avatar-wrap">
+          <div class="ring" aria-hidden="true"></div>
+          <div class="avatar">
+            <!-- Replace src with your own image path inside your project, e.g. assets/profile.jpg -->
+            <img src="c:\Users\ravik\Downloads\Untitled design.jpg" alt="Ravi portrait" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback').style.display='grid'">
+            <div class="fallback" style="display:none; place-items:center">RG</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Services -->
+  <section id="services" class="container card">
+    <h2>Services</h2>
+    <p class="muted">What I enjoy building and can help with.</p>
+    <div class="service-grid">
+      <div class="service">
+        <i class="fa-solid fa-robot"></i>
+        <h3>AI / ML Prototypes</h3>
+        <p class="muted">From data prep to model experimentation and quick demos using Python & notebooks.</p>
+      </div>
+      <div class="service">
+        <i class="fa-solid fa-microchip"></i>
+        <h3>IoT Builds</h3>
+        <p class="muted">Arduino / ESP32 proof‑of‑concepts with sensors for smart environments & mobility.</p>
+      </div>
+      <div class="service">
+        <i class="fa-solid fa-code"></i>
+        <h3>Web Dev</h3>
+        <p class="muted">Clean, responsive sites with HTML, CSS and JavaScript; quick landing pages and dashboards.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="container card">
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="chip">C / C++</div>
+      <div class="chip">Python</div>
+      <div class="chip">Arduino / ESP32</div>
+      <div class="chip">Matlab/Simulink</div>
+      <div class="chip">MySQL</div>
+      <div class="chip">HTML/CSS/JS</div>
+      <div class="chip">Git & GitHub</div>
+      <div class="chip">Figma Basics</div>
+    </div>
+  </section>
+
+  <!-- Experience / Education -->
+  <section id="experience" class="container card">
+    <h2>Experience</h2>
+    <div class="timeline">
+      <div class="item">
+        <h3>K.J. Somaiya School of Engineering — <span class="gradient-text">B.Tech (EXCP)</span></h3>
+        <div class="when">2023 — Present</div>
+        <p class="muted">Coursework & projects spanning Algorithms, Intelligent Agents, Communications & Embedded Systems.</p>
+      </div>
+      <div class="item">
+        <h3>Smart Wheelchair — <span class="gradient-text">Voice Control</span></h3>
+        <div class="when">2025</div>
+        <p class="muted">Designed a voice‑driven mobility prototype with obstacle awareness and joystick override.</p>
+      </div>
+      <div class="item">
+        <h3>Smart Agriculture — <span class="gradient-text">IoT</span></h3>
+        <div class="when">2025</div>
+        <p class="muted">Soil moisture, humidity & temperature sensing, with rules for pump control and data logging.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="container card">
+    <h2>Projects</h2>
+    <div class="projects">
+      <article class="project">
+        <img src="assets/agri.jpg" alt="Smart Agriculture IoT" onerror="this.src='https://images.unsplash.com/photo-1517976487492-576ea62a2105?q=80&w=1200&auto=format&fit=crop'">
+        <div class="p-body">
+          <h3>Smart Agriculture IoT</h3>
+          <p class="muted">Automated irrigation using soil moisture thresholds with ESP32, DHT11 and a relay module.</p>
+          <div class="tags">
+            <span class="chip">ESP32</span><span class="chip">DHT11</span><span class="chip">IoT</span>
+          </div>
+        </div>
+      </article>
+      <article class="project">
+        <img src="assets/wheelchair.jpg" alt="Voice Controlled Wheelchair" onerror="this.src='https://images.unsplash.com/photo-1520976153618-6b0f6a4d91af?q=80&w=1200&auto=format&fit=crop'">
+        <div class="p-body">
+          <h3>Voice‑Controlled Smart Wheelchair</h3>
+          <p class="muted">Bluetooth voice commands with safety cutoff and manual override for precise indoor movement.</p>
+          <div class="tags">
+            <span class="chip">Arduino</span><span class="chip">HC‑05</span><span class="chip">Robotics</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container card">
+    <h2>Contact</h2>
+    <div class="contact">
+      <form class="form" onsubmit="event.preventDefault(); alert('Thanks! I\'ll get back to you soon.'); this.reset();">
+        <input type="text" placeholder="Your name" required>
+        <input type="email" placeholder="Email address" required>
+        <textarea rows="5" placeholder="Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div>
+        <h3>Find me</h3>
+        <p class="muted">Mumbai, India · Available for internships & collabs</p>
+        <ul class="muted">
+          <li><i class="fa-solid fa-envelope"></i> your.email@example.com</li>
+          <li><i class="fa-brands fa-github"></i> github.com/yourusername</li>
+          <li><i class="fa-brands fa-linkedin"></i> linkedin.com/in/yourusername</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>© <span id="year"></span> Ravi • Built with 💜</footer>
+
+  <script>
+    // Typing effect
+    const roles = [
+      'Student Engineer',
+      'AI & IoT Enthusiast',
+      'Problem Solver',
+      'Robotics Hobbyist'
+    ];
+    const target = document.getElementById('typeTarget');
+    let roleIdx = 0, charIdx = 0, direction = 1;
+
+    function tick(){
+      const word = roles[roleIdx];
+      charIdx += direction;
+      target.textContent = word.slice(0, charIdx);
+      if(charIdx === word.length){ direction = -1; setTimeout(tick, 1200); return; }
+      if(charIdx === 0){ direction = 1; roleIdx = (roleIdx + 1) % roles.length; }
+      setTimeout(tick, direction > 0 ? 75 : 35);
+    }
+    tick();
+
+    // Active nav on scroll
+    const sections = [...document.querySelectorAll('main, section')];
+    const navLinks = [...document.querySelectorAll('nav a'), ...document.querySelectorAll('#mobileMenu a')];
+
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const id = e.target.getAttribute('id') || 'home';
+          document.querySelectorAll('.links a').forEach(a=>a.classList.remove('active'));
+          const link = document.querySelector(`.links a[href="#${id}"]`);
+          if(link) link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(s=> obs.observe(s));
+
+    // Mobile menu toggle
+    const btn = document.querySelector('.menu-btn');
+    const mobile = document.getElementById('mobileMenu');
+    btn.addEventListener('click', ()=>{
+      mobile.style.display = mobile.style.display === 'block' ? 'none' : 'block';
+    });
+    mobile.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> mobile.style.display = 'none'));
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
